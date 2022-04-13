@@ -42,7 +42,7 @@ CoroutineWaitList::CoroutineWaitList(CoroutineWaitList&& other) {
     m_coroutinesWithTimeout = std::move(other.m_coroutinesWithTimeout);
 
     m_timeoutCheckingProcessors = std::move(other.m_timeoutCheckingProcessors);
-    for (const std::pair<Processor*, v_int64>& entry : m_timeoutCheckingProcessors) {
+    for (const std::pair<Processor*, v_int64> entry : m_timeoutCheckingProcessors) {
       Processor* processor = entry.first;
       processor->removeCoroutineWaitListWithTimeouts(std::addressof(other));
       processor->addCoroutineWaitListWithTimeouts(this);
@@ -173,7 +173,7 @@ CoroutineWaitList& CoroutineWaitList::operator=(CoroutineWaitList&& other) {
       m_coroutinesWithTimeout = std::move(other.m_coroutinesWithTimeout);
 
       m_timeoutCheckingProcessors = std::move(other.m_timeoutCheckingProcessors);
-      for (const std::pair<Processor*, v_int64>& entry : m_timeoutCheckingProcessors) {
+      for (const std::pair<Processor*, v_int64> entry : m_timeoutCheckingProcessors) {
         Processor* processor = entry.first;
         processor->removeCoroutineWaitListWithTimeouts(std::addressof(other));
         processor->addCoroutineWaitListWithTimeouts(this);
