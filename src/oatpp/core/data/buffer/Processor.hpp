@@ -221,6 +221,8 @@ public:
    */
   v_int32 iterate(data::buffer::InlineReadData& dataIn,
                   data::buffer::InlineReadData& dataOut) override;
+    
+  virtual ~ProcessingPipeline() = default;
 
 };
 
