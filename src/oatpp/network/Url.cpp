@@ -81,7 +81,7 @@ Url::Authority Url::Parser::parseAuthority(oatpp::parser::Caret& caret) {
   if(portPos > hostPos) {
     result.host = oatpp::String((const char*)&data[hostPos], portPos - 1 - hostPos);
     char* end;
-    result.port = std::strtol((const char*)&data[portPos], &end, 10);
+    result.port = (v_int32)std::strtol((const char*)&data[portPos], &end, 10);
     bool success = (((v_buff_size)end - (v_buff_size)&data[portPos]) == pos - portPos);
     if(!success) {
       caret.setError("Invalid port string");
