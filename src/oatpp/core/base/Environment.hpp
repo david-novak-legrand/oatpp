@@ -75,7 +75,7 @@ typedef v_int64 v_counter;
  * This type is the integer type capable of storing a pointer. Thus is capable of storing size of allocated memory. <br>
  * Use this type to define a size for the buffer.
  */
-typedef intptr_t v_buff_size;
+typedef v_int64 v_buff_size;
 typedef v_buff_size* p_buff_size;
 
 typedef uintptr_t v_buff_usize;

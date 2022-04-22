@@ -53,7 +53,7 @@ v_io_size BufferOutputStream::write(const void *data, v_buff_size count, async::
 
   reserveBytesUpfront(count);
 
-  std::memcpy(m_data + m_position, data, count);
+  std::memcpy(m_data + m_position, data, (size_t)count);
   m_position += count;
 
   return count;
@@ -90,7 +90,7 @@ void BufferOutputStream::reserveBytesUpfront(v_buff_size count) {
 
     p_char8 newData = new v_char8[newCapacity];
 
-    std::memcpy(newData, m_data, m_position);
+    std::memcpy(newData, m_data, (size_t)m_position);
     delete [] m_data;
     m_data = newData;
     m_capacity = newCapacity;
@@ -220,7 +220,7 @@ v_io_size BufferInputStream::read(void *data, v_buff_size count, async::Action& 
   if(desiredAmount > m_size - m_position) {
     desiredAmount = m_size - m_position;
   }
-  std::memcpy(data, &m_data[m_position], desiredAmount);
+  std::memcpy(data, &m_data[m_position], (size_t)desiredAmount);
   m_position += desiredAmount;
   return desiredAmount;
 }
@@ -264,7 +264,7 @@ v_io_size BufferInputStream::peek(void *data, v_buff_size count, async::Action &
   if(desiredAmount > m_size - m_position) {
     desiredAmount = m_size - m_position;
   }
-  std::memcpy(data, &m_data[m_position], desiredAmount);
+  std::memcpy(data, &m_data[m_position], (size_t)desiredAmount);
   return desiredAmount;
 }
 

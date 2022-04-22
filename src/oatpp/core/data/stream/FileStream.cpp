@@ -68,7 +68,7 @@ std::FILE* FileInputStream::getFile() {
 v_io_size FileInputStream::read(void *data, v_buff_size count, async::Action& action) {
   (void) action;
   if(m_file != nullptr) {
-    return std::fread(data, 1, count, m_file);
+    return std::fread(data, 1, (size_t)count, m_file);
   }
   return oatpp::IOError::BROKEN_PIPE;
 }
@@ -147,7 +147,7 @@ std::FILE* FileOutputStream::getFile() {
 
 v_io_size FileOutputStream::write(const void *data, v_buff_size count, async::Action& action) {
   (void) action;
-  return std::fwrite(data, 1, count, m_file);
+  return std::fwrite(data, 1, (size_t)count, m_file);
 }
 
 void FileOutputStream::setOutputStreamIOMode(IOMode ioMode) {

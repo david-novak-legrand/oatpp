@@ -34,18 +34,18 @@ v_buff_size String::compare(const void* data1, v_buff_size size1, const void* da
   if(data2 == nullptr) return 1;
 
   if(size1 < size2) {
-    auto res = std::memcmp(data1, data2, size1);
+    auto res = std::memcmp(data1, data2, (size_t)size1);
     if(res == 0) return -1;
     return res;
   }
 
   if(size1 > size2) {
-    auto res = std::memcmp(data1, data2, size2);
+    auto res = std::memcmp(data1, data2, (size_t)size2);
     if(res == 0) return 1;
     return res;
   }
 
-  return std::memcmp(data1, data2, size1);
+  return std::memcmp(data1, data2, (size_t)size1);
 
 }
 

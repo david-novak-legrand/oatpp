@@ -86,7 +86,7 @@ namespace oatpp { namespace parser {
     if(end == -1){
       end = m_caret->m_pos;
     }
-    return std::string((const char*) (&m_caret->m_data[m_start]), end - m_start);
+    return std::string((const char*) (&m_caret->m_data[m_start]), (size_t)(end - m_start));
   }
 
   Caret::Label::operator bool() const {

@@ -100,7 +100,7 @@ void DefaultLogger::log(v_uint32 priority, const std::string& tag, const std::st
   }
 
   if (m_config.timeFormat) {
-	time_t seconds = std::chrono::duration_cast<std::chrono::seconds>(time).count();
+	time_t seconds = (time_t)std::chrono::duration_cast<std::chrono::seconds>(time).count();
     struct tm now;
     localtime_r(&seconds, &now);
 #ifdef OATPP_DISABLE_STD_PUT_TIME
@@ -365,9 +365,9 @@ void Environment::vlogFormatted(v_uint32 priority, const std::string& tag, const
     allocsize = m_logger->getMaxFormattingBufferSize();
   }
   auto buffer = std::unique_ptr<char[]>(new char[allocsize]);
-  memset(buffer.get(), 0, allocsize);
+  memset(buffer.get(), 0, (size_t)allocsize);
   // actually format
-  vsnprintf(buffer.get(), allocsize, message, args);
+  vsnprintf(buffer.get(), (size_t)allocsize, message, args);
   // call (user) providen log function
   log(priority, tag, buffer.get());
 }

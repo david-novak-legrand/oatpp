@@ -368,7 +368,7 @@ oatpp::String Utils::unescapeString(const char* data, v_buff_size size, v_int64&
   }
   auto result = String(unescapedSize);
   if(unescapedSize == size) {
-    std::memcpy((void*) result->data(), data, size);
+    std::memcpy((void*) result->data(), data, (size_t)size);
   } else {
     unescapeStringToBuffer(data, size, (p_char8) result->data());
   }
@@ -383,9 +383,9 @@ std::string Utils::unescapeStringToStdString(const char* data, v_buff_size size,
     return "";
   }
   std::string result;
-  result.resize(unescapedSize);
+  result.resize((size_t)unescapedSize);
   if(unescapedSize == size) {
-    std::memcpy((p_char8) result.data(), data, size);
+    std::memcpy((p_char8) result.data(), data, (size_t)size);
   } else {
     unescapeStringToBuffer(data, size, (p_char8) result.data());
   }

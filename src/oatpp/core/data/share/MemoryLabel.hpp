@@ -154,7 +154,7 @@ public:
    * @return std::string(data, size)
    */
   std::string std_str() const {
-    return std::string((const char*) m_data, m_size);
+    return std::string((const char*) m_data, (size_t)m_size);
   }
 
   inline bool operator==(std::nullptr_t) const {

@@ -77,19 +77,19 @@ namespace oatpp { namespace utils { namespace conversion {
   }
 
   v_buff_size int32ToCharSequence(v_int32 value, p_char8 data, v_buff_size n) {
-    return snprintf((char*)data, n, "%ld", (long) value);
+    return snprintf((char*)data, (size_t)n, "%ld", (long) value);
   }
 
   v_buff_size uint32ToCharSequence(v_uint32 value, p_char8 data, v_buff_size n) {
-    return snprintf((char*)data, n, "%lu", (unsigned long) value);
+    return snprintf((char*)data, (size_t)n, "%lu", (unsigned long) value);
   }
 
   v_buff_size int64ToCharSequence(v_int64 value, p_char8 data, v_buff_size n) {
-    return snprintf((char*)data, n, "%lld", (long long int) value);
+    return snprintf((char*)data, (size_t)n, "%lld", (long long int) value);
   }
 
   v_buff_size uint64ToCharSequence(v_uint64 value, p_char8 data, v_buff_size n) {
-    return snprintf((char*)data, n, "%llu", (long long unsigned int) value);
+    return snprintf((char*)data, (size_t)n, "%llu", (long long unsigned int) value);
   }
 
   oatpp::String int32ToStr(v_int32 value){
@@ -132,7 +132,7 @@ namespace oatpp { namespace utils { namespace conversion {
     v_char8 buff [16];
     auto size = int32ToCharSequence(value, &buff[0], 16);
     if(size > 0){
-      return std::string((const char*)buff, size);
+      return std::string((const char*)buff, (size_t)size);
     }
     return nullptr;
   }
@@ -141,7 +141,7 @@ namespace oatpp { namespace utils { namespace conversion {
     v_char8 buff [16];
     auto size = uint32ToCharSequence(value, &buff[0], 16);
     if(size > 0){
-      return std::string((const char*)buff, size);
+      return std::string((const char*)buff, (size_t)size);
     }
     return nullptr;
   }
@@ -159,7 +159,7 @@ namespace oatpp { namespace utils { namespace conversion {
     v_char8 buff [32];
     auto size = uint64ToCharSequence(value, &buff[0], 32);
     if(size > 0){
-      return std::string((const char*)buff, size);
+      return std::string((const char*)buff, (size_t)size);
     }
     return nullptr;
   }
@@ -189,11 +189,11 @@ namespace oatpp { namespace utils { namespace conversion {
   }
 
   v_buff_size float32ToCharSequence(v_float32 value, p_char8 data, v_buff_size n, const char* format) {
-    return snprintf((char*)data, n, format, value);
+    return snprintf((char*)data, (size_t)n, format, value);
   }
 
 v_buff_size float64ToCharSequence(v_float64 value, p_char8 data, v_buff_size n, const char* format) {
-    return snprintf((char*)data, n, format, value);
+    return snprintf((char*)data, (size_t)n, format, value);
   }
   
   oatpp::String float32ToStr(v_float32 value, const char* format) {

@@ -34,7 +34,7 @@ oatpp::String Url::Parser::parseScheme(oatpp::parser::Caret& caret) {
   v_buff_size size = caret.getPosition() - pos0;
   if(size > 0) {
     std::unique_ptr<v_char8[]> buff(new v_char8[size]);
-    std::memcpy(buff.get(), &caret.getData()[pos0], size);
+    std::memcpy(buff.get(), &caret.getData()[pos0], (size_t)size);
     utils::String::lowerCase_ASCII(buff.get(), size);
     return oatpp::String((const char*)buff.get(), size);
   }
