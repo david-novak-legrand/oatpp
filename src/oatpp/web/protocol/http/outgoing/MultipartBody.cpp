@@ -65,15 +65,15 @@ v_io_size MultipartBody::read(void *buffer, v_buff_size count, async::Action& ac
     switch (m_state) {
 
       case STATE_BOUNDARY:
-        res = readBoundary(m_multipart, m_iterator, m_readStream, currBufferPtr, bytesLeft);
+        res = readBoundary(m_multipart, m_iterator, m_readStream, currBufferPtr, (v_buff_size)bytesLeft);
         break;
 
       case STATE_HEADERS:
-        res = readHeaders(m_multipart, m_iterator, m_readStream, currBufferPtr, bytesLeft);
+        res = readHeaders(m_multipart, m_iterator, m_readStream, currBufferPtr, (v_buff_size)bytesLeft);
         break;
 
       case STATE_BODY:
-        res = readBody(currBufferPtr, bytesLeft, action);
+        res = readBody(currBufferPtr, (v_buff_size)bytesLeft, action);
         break;
 
       case STATE_INC_PART:

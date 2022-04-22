@@ -44,7 +44,7 @@ v_io_size RequestHeadersReader::readHeadersSectionIterative(ReadHeadersIteration
   auto res = stream->peek(bufferData, desiredToRead, action);
   if(res > 0) {
 
-    m_bufferStream->setCurrentPosition(m_bufferStream->getCurrentPosition() + res);
+    m_bufferStream->setCurrentPosition(m_bufferStream->getCurrentPosition() + (v_buff_size)res);
 
     for(v_buff_size i = 0; i < res; i ++) {
       iteration.accumulator <<= 8;
@@ -56,7 +56,7 @@ v_io_size RequestHeadersReader::readHeadersSectionIterative(ReadHeadersIteration
       }
     }
 
-    stream->commitReadOffset(res);
+    stream->commitReadOffset((v_buff_size)res);
 
   }
   

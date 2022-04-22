@@ -74,7 +74,7 @@ public:
   oatpp::async::CoroutineStarter flushAsync();
 
   void setBufferPosition(v_io_size readPosition, v_io_size writePosition, bool canRead) {
-    m_buffer.setBufferPosition(readPosition, writePosition, canRead);
+    m_buffer.setBufferPosition((v_buff_size)readPosition, (v_buff_size)writePosition, canRead);
   }
   
 };
@@ -92,7 +92,7 @@ public:
                            bool bufferCanRead)
     : m_inputStream(inputStream)
     , m_memoryLabel(memoryLabel)
-    , m_buffer((void*) memoryLabel.getData(), memoryLabel.getSize(), bufferReadPosition, bufferWritePosition, bufferCanRead)
+    , m_buffer((void*) memoryLabel.getData(), memoryLabel.getSize(), (v_buff_size)bufferReadPosition, (v_buff_size)bufferWritePosition, bufferCanRead)
   {}
 public:
   
@@ -138,7 +138,7 @@ public:
   Context& getInputStreamContext() override;
 
   void setBufferPosition(v_io_size readPosition, v_io_size writePosition, bool canRead) {
-    m_buffer.setBufferPosition(readPosition, writePosition, canRead);
+    m_buffer.setBufferPosition((v_buff_size)readPosition, (v_buff_size)writePosition, canRead);
   }
   
 };

@@ -47,14 +47,14 @@ v_io_size ResponseHeadersReader::readHeadersSectionIterative(ReadHeadersIteratio
   auto res = connection->read(bufferData, desiredToRead, action);
   if(res > 0) {
 
-    bufferStream->writeSimple(bufferData, res);
+    bufferStream->writeSimple(bufferData, (v_buff_size)res);
 
     for(v_buff_size i = 0; i < res; i ++) {
       iteration.accumulator <<= 8;
       iteration.accumulator |= bufferData[i];
       if(iteration.accumulator == SECTION_END) {
         result.bufferPosStart = i + 1;
-        result.bufferPosEnd = res;
+        result.bufferPosEnd = (v_buff_size)res;
         iteration.done = true;
         return res;
       }

@@ -100,7 +100,7 @@ void DefaultLogger::log(v_uint32 priority, const std::string& tag, const std::st
   }
 
   if (m_config.timeFormat) {
-	time_t seconds = std::chrono::duration_cast<std::chrono::seconds>(time).count();
+	time_t seconds = (time_t)std::chrono::duration_cast<std::chrono::seconds>(time).count();
     struct tm now;
     localtime_r(&seconds, &now);
 #ifdef OATPP_DISABLE_STD_PUT_TIME

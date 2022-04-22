@@ -44,7 +44,7 @@ v_int32 EncoderChunked::iterate(data::buffer::InlineReadData& dataIn, data::buff
   if(dataIn.currBufferPtr != nullptr) {
 
     if(m_lastFlush > 0) {
-      dataIn.inc(m_lastFlush);
+      dataIn.inc((v_buff_size)m_lastFlush);
       m_lastFlush = 0;
     }
 
@@ -192,7 +192,7 @@ v_int32 DecoderChunked::iterate(data::buffer::InlineReadData& dataIn, data::buff
   if(dataIn.currBufferPtr != nullptr) {
 
     if(m_lastFlush > 0) {
-      dataIn.inc(m_lastFlush);
+      dataIn.inc((v_buff_size)m_lastFlush);
       m_currentChunkSize -= m_lastFlush;
       if(m_currentChunkSize == 0) {
         m_currentChunkSize = -1;
@@ -225,7 +225,7 @@ v_int32 DecoderChunked::iterate(data::buffer::InlineReadData& dataIn, data::buff
       m_lastFlush = m_currentChunkSize;
     }
 
-    dataOut.set(dataIn.currBufferPtr, m_lastFlush);
+    dataOut.set(dataIn.currBufferPtr, (v_buff_size)m_lastFlush);
     return Error::FLUSH_DATA_OUT;
 
   }

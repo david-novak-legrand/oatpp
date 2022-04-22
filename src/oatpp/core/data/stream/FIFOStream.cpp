@@ -70,11 +70,11 @@ v_io_size FIFOInputStream::write(const void *data, v_buff_size count, async::Act
 
 void FIFOInputStream::reserveBytesUpfront(v_buff_size count) {
 
-  v_buff_size capacityNeeded = availableToRead() + count;
+  v_buff_size capacityNeeded = (v_buff_size)availableToRead() + count;
 
   if(capacityNeeded > m_fifo->getBufferSize()) {
 
-    v_buff_size newCapacity = utils::Binary::nextP2(capacityNeeded);
+    v_buff_size newCapacity = (v_buff_size)utils::Binary::nextP2(capacityNeeded);
 
     if(newCapacity < 0 || (m_maxCapacity > 0 && newCapacity > m_maxCapacity)) {
       newCapacity = m_maxCapacity;
@@ -87,7 +87,7 @@ void FIFOInputStream::reserveBytesUpfront(v_buff_size count) {
     // ToDo: In-Memory-Resize
     auto newHandle = std::make_shared<std::string>(newCapacity, (char)0);
     v_io_size oldSize = m_fifo->availableToRead();
-    m_fifo->read((void*)newHandle->data(), oldSize);
+    m_fifo->read((void*)newHandle->data(), (v_buff_size)oldSize);
     auto newFifo = std::make_shared<data::buffer::FIFOBuffer>((void*)newHandle->data(), newHandle->size(), 0, oldSize, oldSize > 0);
     m_memoryHandle = newHandle;
     m_fifo = newFifo;

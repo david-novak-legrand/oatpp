@@ -43,7 +43,7 @@ void Pipe::Reader::setMaxAvailableToRead(v_io_size maxAvailableToRead) {
 v_io_size Pipe::Reader::read(void *data, v_buff_size count, async::Action& action) {
   
   if(m_maxAvailableToRead > -1 && count > m_maxAvailableToRead) {
-    count = m_maxAvailableToRead;
+    count = (v_buff_size)m_maxAvailableToRead;
   }
   
   Pipe& pipe = *m_pipe;
@@ -114,7 +114,7 @@ void Pipe::Writer::setMaxAvailableToWrite(v_io_size maxAvailableToWrite) {
 v_io_size Pipe::Writer::write(const void *data, v_buff_size count, async::Action& action) {
   
   if(m_maxAvailableToWrtie > -1 && count > m_maxAvailableToWrtie) {
-    count = m_maxAvailableToWrtie;
+    count = (v_buff_size)m_maxAvailableToWrtie;
   }
 
   Pipe& pipe = *m_pipe;

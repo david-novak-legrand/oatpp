@@ -61,7 +61,7 @@ void StatefulParser::ListenerCall::call(StatefulParser* parser) {
         break;
 
       case CALL_ON_DATA:
-        parser->m_listener->onPartData(data, size);
+        parser->m_listener->onPartData(data, (v_buff_size)size);
         break;
 
     }
@@ -83,7 +83,7 @@ async::CoroutineStarter StatefulParser::ListenerCall::callAsync(StatefulParser* 
       }
 
       case CALL_ON_DATA:
-        return parser->m_asyncListener->onPartDataAsync(data, size);
+        return parser->m_asyncListener->onPartDataAsync(data, (v_buff_size)size);
 
     }
 
@@ -155,7 +155,7 @@ StatefulParser::ListenerCall StatefulParser::parseNext_Boundary(data::buffer::In
 
   parser::Caret caret((const char*)data, size);
 
-  if(caret.isAtText(&sampleData[m_currBoundaryCharIndex], checkSize, true)) {
+  if(caret.isAtText(&sampleData[m_currBoundaryCharIndex], (v_buff_size)checkSize, true)) {
 
     m_currBoundaryCharIndex += caret.getPosition();
 

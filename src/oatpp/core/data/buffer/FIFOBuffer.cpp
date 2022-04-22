@@ -282,7 +282,7 @@ v_io_size FIFOBuffer::readAndWriteToStream(data::stream::WriteCallback* stream, 
 
     auto bytesWritten = stream->write(m_buffer, m_writePosition, action);
     if(bytesWritten > 0) {
-      m_readPosition = bytesWritten;
+      m_readPosition = (v_buff_size)bytesWritten;
       if (m_readPosition == m_writePosition) {
         m_canRead = false;
       }
@@ -333,7 +333,7 @@ v_io_size FIFOBuffer::readFromStreamAndWrite(data::stream::ReadCallback* stream,
 
     auto bytesRead = stream->read(m_buffer, m_readPosition, action);
     if(bytesRead > 0) {
-      m_writePosition = bytesRead;
+      m_writePosition = (v_buff_size)bytesRead;
       m_canRead = true;
     }
 

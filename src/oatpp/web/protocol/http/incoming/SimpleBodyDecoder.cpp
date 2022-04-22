@@ -186,7 +186,7 @@ async::CoroutineStarter SimpleBodyDecoder::decodeAsync(const Headers& headers,
         auto contentEncoding = headers.getAsMemoryLabel<data::share::StringKeyLabelCI>(Header::CONTENT_ENCODING);
         auto processor = getStreamProcessor(nullptr, contentEncoding);
         auto buffer = data::buffer::IOBuffer::createShared();
-        return std::move(pipeline.next(data::stream::transferAsync(bodyStream, writeCallback, contentLength, buffer, processor)));
+        return std::move(pipeline.next(data::stream::transferAsync(bodyStream, writeCallback, (v_buff_size)contentLength, buffer, processor)));
 
       }
 

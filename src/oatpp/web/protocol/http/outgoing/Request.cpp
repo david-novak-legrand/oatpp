@@ -109,7 +109,7 @@ void Request::send(data::stream::OutputStream* stream){
 
     m_body->declareHeaders(m_headers);
 
-    bodySize = m_body->getKnownSize();
+    bodySize = (v_buff_size)m_body->getKnownSize();
 
     if(bodySize >= 0) {
       m_headers.put_LockFree(Header::CONTENT_LENGTH, utils::conversion::int64ToStr(bodySize));
@@ -190,7 +190,7 @@ oatpp::async::CoroutineStarter Request::sendAsync(std::shared_ptr<Request> _this
 
         m_this->m_body->declareHeaders(m_this->m_headers);
 
-        bodySize = m_this->m_body->getKnownSize();
+        bodySize = (v_buff_size)m_this->m_body->getKnownSize();
 
         if(bodySize >= 0) {
           m_this->m_headers.put_LockFree(Header::CONTENT_LENGTH, utils::conversion::int64ToStr(bodySize));

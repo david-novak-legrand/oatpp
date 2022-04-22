@@ -78,7 +78,7 @@ void BufferOutputStream::reserveBytesUpfront(v_buff_size count) {
 
   if(capacityNeeded > m_capacity) {
 
-    v_buff_size newCapacity = utils::Binary::nextP2(capacityNeeded);
+    v_buff_size newCapacity = (v_buff_size)utils::Binary::nextP2(capacityNeeded);
 
     if(newCapacity < 0 || (m_maxCapacity > 0 && newCapacity > m_maxCapacity)) {
       newCapacity = m_maxCapacity;

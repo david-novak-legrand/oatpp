@@ -160,11 +160,11 @@ void Response::send(data::stream::OutputStream* stream,
           data::stream::transfer(m_body, stream, 0, headersWriteBuffer->getData(), headersWriteBuffer->getCapacity());
         } else { 
           if (bodySize + headersWriteBuffer->getCurrentPosition() < headersWriteBuffer->getCapacity()) {
-            headersWriteBuffer->writeSimple(m_body->getKnownData(), bodySize);
+            headersWriteBuffer->writeSimple(m_body->getKnownData(), (v_buff_size)bodySize);
             headersWriteBuffer->flushToStream(stream);
           } else {
             headersWriteBuffer->flushToStream(stream);
-            stream->writeExactSizeDataSimple(m_body->getKnownData(), bodySize);
+            stream->writeExactSizeDataSimple(m_body->getKnownData(), (v_buff_size)bodySize);
           }
         }
       } else {
@@ -235,7 +235,7 @@ oatpp::async::CoroutineStarter Response::sendAsync(const std::shared_ptr<Respons
 
         if(!m_contentEncoderProvider) {
 
-          bodySize = m_this->m_body->getKnownSize();
+          bodySize = (v_buff_size)m_this->m_body->getKnownSize();
 
           if (bodySize >= 0) {
             m_this->m_headers.put_LockFree(Header::CONTENT_LENGTH, utils::conversion::int64ToStr(bodySize));

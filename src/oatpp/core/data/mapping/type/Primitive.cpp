@@ -43,7 +43,7 @@ String::String(const std::shared_ptr<std::string>& ptr, const type::Type* const 
 String String::loadFromFile(const char* filename) {
   std::ifstream file (filename, std::ios::in|std::ios::binary|std::ios::ate);
   if (file.is_open()) {
-    auto result = data::mapping::type::String(file.tellg());
+    auto result = data::mapping::type::String((v_buff_size)file.tellg());
     file.seekg(0, std::ios::beg);
     file.read((char*) result->data(), result->size());
     file.close();

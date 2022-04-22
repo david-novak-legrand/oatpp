@@ -31,9 +31,9 @@ namespace oatpp { namespace data{ namespace stream {
 // WriteCallback
 
 v_io_size WriteCallback::write(data::buffer::InlineWriteData& inlineData, async::Action& action) {
-  auto res = write(inlineData.currBufferPtr, inlineData.bytesLeft, action);
+  auto res = write(inlineData.currBufferPtr, (v_buff_size)inlineData.bytesLeft, action);
   if(res > 0) {
-    inlineData.inc(res);
+    inlineData.inc((v_buff_size)res);
   }
   return res;
 }
@@ -135,7 +135,7 @@ async::CoroutineStarter WriteCallback::writeExactSizeDataAsync(const void* data,
 v_io_size ReadCallback::read(data::buffer::InlineReadData& inlineData, async::Action& action) {
   auto res = read(inlineData.currBufferPtr, inlineData.bytesLeft, action);
   if(res > 0) {
-    inlineData.inc(res);
+    inlineData.inc((v_buff_size)res);
   }
   return res;
 }
@@ -587,14 +587,14 @@ v_io_size transfer(const base::ObjectHandle<ReadCallback>& readCallback,
 
     if(procRes == data::buffer::Processor::Error::PROVIDE_DATA_IN && inData.bytesLeft == 0) {
 
-      v_buff_size desiredToRead = processor->suggestInputStreamReadSize();
+      v_buff_size desiredToRead = (v_buff_size)processor->suggestInputStreamReadSize();
 
       if (desiredToRead > bufferSize) {
         desiredToRead = bufferSize;
       }
 
       if(transferSize > 0 && progress + desiredToRead > transferSize) {
-        desiredToRead = transferSize - progress;
+        desiredToRead = (v_buff_size)(transferSize - progress);
       }
 
       v_io_size res = 0;
@@ -607,7 +607,7 @@ v_io_size transfer(const base::ObjectHandle<ReadCallback>& readCallback,
       }
 
       if (res > 0) {
-        inData.set(buffer, res);
+        inData.set(buffer, (v_buff_size)res);
         progress += res;
       } else {
         inData.set(nullptr, 0);
@@ -632,7 +632,7 @@ v_io_size transfer(const base::ObjectHandle<ReadCallback>& readCallback,
           res = writeCallback->writeSimple(outData.currBufferPtr, outData.bytesLeft);
         }
         if(res > 0) {
-          outData.inc(res);
+          outData.inc((v_buff_size)res);
         } else {
           return progress;
         }
@@ -715,11 +715,11 @@ async::CoroutineStarter transferAsync(const base::ObjectHandle<ReadCallback>& re
         v_io_size res = 0;
 
         if(desiredToRead > 0) {
-          res = m_readCallback->read(m_readData.currBufferPtr, desiredToRead, action);
+          res = m_readCallback->read(m_readData.currBufferPtr, (v_buff_size)desiredToRead, action);
         }
 
         if (res > 0) {
-          m_readData.inc(res);
+          m_readData.inc((v_buff_size)res);
           m_inData.set(m_buffer->getData(), m_buffer->getSize() - m_readData.bytesLeft);
           m_progress += res;
         } else {
