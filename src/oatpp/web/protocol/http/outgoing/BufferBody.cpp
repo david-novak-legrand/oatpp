@@ -49,7 +49,7 @@ v_io_size BufferBody::read(void *buffer, v_buff_size count, async::Action &actio
       desiredToRead = count;
     }
 
-    std::memcpy(buffer, m_inlineData.currBufferPtr, desiredToRead);
+    std::memcpy(buffer, m_inlineData.currBufferPtr, (size_t)desiredToRead);
     m_inlineData.inc(desiredToRead);
 
     return desiredToRead;
